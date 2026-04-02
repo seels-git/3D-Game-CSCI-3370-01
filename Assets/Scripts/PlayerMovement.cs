@@ -3,8 +3,11 @@ using UnityEngine;
 public class PlayerMovement3D : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float rotationSpeed = 100f; // Added for turning speed
+    public float rotationSpeed = 100f;
+    public float jumpForce = 7f;
+
     private Rigidbody rb;
+    private bool isGrounded = true;
 
     void Start()
     {
@@ -13,19 +16,28 @@ public class PlayerMovement3D : MonoBehaviour
 
     void Update()
     {
+        // --- ROTATION (Left/Right) ---
         float horizontal = Input.GetAxis("Horizontal");
+        transform.Rotate(0f, horizontal * rotationSpeed * Time.deltaTime, 0f);
+
+        // --- FORWARD MOVEMENT (Forward/Backward) ---
         float vertical = Input.GetAxis("Vertical");
-
-        // 1. Handle Rotation (Left/Right)
-        // This rotates the character on the Y-axis based on horizontal input
-        transform.Rotate(0, horizontal * rotationSpeed * Time.deltaTime, 0);
-
-        // 2. Handle Forward Movement (Up/Down)
-        // We move in the direction the character is CURRENTLY facing (transform.forward)
         Vector3 moveDirection = transform.forward * vertical * moveSpeed;
 
-        // 3. Apply to Rigidbody
-        // We keep rb.linearVelocity.y so the character can still fall with gravity
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+        // Keep gravity by preserving rb.velocity.y
+        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+
+        // --- JUMP ---
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
+    }
+
+    // Detect ground contact
+    private void OnCollisionEnter(Collision collision)
+    {
+        isGrounded = true;
     }
 }
