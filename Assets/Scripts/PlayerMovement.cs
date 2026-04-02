@@ -4,6 +4,8 @@ public class PlayerMovement3D : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed = 100f; // Added for turning speed
+
+    public float jumpspeed = 5f;
     private Rigidbody rb;
 
     void Start()
@@ -27,5 +29,10 @@ public class PlayerMovement3D : MonoBehaviour
         // 3. Apply to Rigidbody
         // We keep rb.linearVelocity.y so the character can still fall with gravity
         rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+                rb.AddForce(Vector3.up*jumpspeed,ForceMode.Impulse);
+        }
     }
 }
