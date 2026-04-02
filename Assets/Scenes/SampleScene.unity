@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 1614927369}
   - component: {fileID: 1614927374}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement3D
   moveSpeed: 5
+  jumpspeed: 2
 --- !u!54 &1614927374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -695,7 +696,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614927368}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
