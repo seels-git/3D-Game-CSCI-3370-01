@@ -12,6 +12,7 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //rb.collisionDetectionMode = collisionDetectionMode.Continuous;
     }
 
     void Update()
