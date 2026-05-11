@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingWall : MonoBehaviour
 {
     [SerializeField] GameObject pointA;
     [SerializeField] GameObject pointB;
