@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "3D-Game-CSCI-3370-01.slnx"
+    "dotnet.defaultSolution": "3D-Game.slnx"
 }
