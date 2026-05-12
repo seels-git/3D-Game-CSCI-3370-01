@@ -34,7 +34,7 @@ public class PlayerMovement3D : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         Vector3 moveDirection = transform.forward * vertical * moveSpeed;
 
-        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
     }
 
     private void OnCollisionEnter(Collision collision)
