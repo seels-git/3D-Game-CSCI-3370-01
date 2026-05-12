@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class PlayerCheckPoint : MonoBehaviour
 {
     public GameObject marker;
@@ -13,9 +14,9 @@ public class PlayerCheckPoint : MonoBehaviour
 
     void Update()
     {
-        if(gameObject.transform.position.y < -20f)
+        if (gameObject.transform.position.y < 3f)
         {
-            gameObject.transform.position = spawnpoint;
+            Die();
         }
     }
 
@@ -26,5 +27,11 @@ public class PlayerCheckPoint : MonoBehaviour
             spawnpoint = marker.transform.position;
             Destroy(marker);
         }
+    }
+
+    void Die()
+    {
+        UIManager.Instance.ShowGameOver();
+        gameObject.SetActive(false);
     }
 }
