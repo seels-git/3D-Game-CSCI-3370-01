@@ -12,23 +12,15 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //rb.collisionDetectionMode = collisionDetectionMode.Continuous;
     }
 
     void Update()
     {
-        // --- ROTATION (Left/Right) ---
+        // Rotation
         float horizontal = Input.GetAxis("Horizontal");
         transform.Rotate(0f, horizontal * rotationSpeed * Time.deltaTime, 0f);
 
-        // --- FORWARD MOVEMENT (Forward/Backward) ---
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 moveDirection = transform.forward * vertical * moveSpeed;
-
-        // Keep gravity by preserving rb.velocity.y
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
-
-        // --- JUMP ---
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -36,9 +28,22 @@ public class PlayerMovement3D : MonoBehaviour
         }
     }
 
-    // Detect ground contact
+    void FixedUpdate()
+    {
+        // Movement (physics-safe)
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 moveDirection = transform.forward * vertical * moveSpeed;
+
+        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
+    }
+
+    public void setSpeed(float newspeed)
+    {
+        moveSpeed = newspeed;
     }
 }
